@@ -78,6 +78,7 @@ function pathsConfig(appName) {
         templates: `${this.app}/templates`,
         css: `${this.app}/static/css`,
         dataTablesCSS: `${vendorsRoot}/datatables.net-bs4/css/*.css`,
+        contentCSS: `${this.app}/static/css/content.css`,
         sass: `${this.app}/static/sass`,
         fonts: `${this.app}/static/fonts`,
         images: `${this.app}/static/images`,
@@ -101,7 +102,12 @@ function styles() {
     return src(`${paths.sass}/project.scss`)
         .pipe(
             sass({
-                includePaths: [paths.bootstrapSass, paths.sass, paths.dataTablesCSS],
+                includePaths: [
+                    paths.bootstrapSass,
+                    paths.sass,
+                    paths.dataTablesCSS,
+                    paths.contentCSS,
+            ],
             }).on("error", sass.logError)
         )
         .pipe(plumber()) // Checks for errors
