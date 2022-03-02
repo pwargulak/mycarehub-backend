@@ -2,6 +2,7 @@ from datetime import date
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.serializers.json import DjangoJSONEncoder
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.formfields import PhoneNumberField
@@ -40,10 +41,15 @@ class ClientRegistrationForm(forms.Form):
     """
 
     facility = forms.ChoiceField(
-        required=True,
         choices=get_facility_choices,
         label="Client's Facility/Clinic",
         help_text="The client's currently assigned facility/clinic",
+    )
+
+    facility_mfl_code = forms.ChoiceField(
+        choices=get_facility_choices,
+        label="Client's Facility/Clinic ",
+        help_text="The client's currently assigned facility/clinic mfl code",
     )
 
     client_type = forms.ChoiceField(
@@ -102,3 +108,5 @@ class ClientRegistrationForm(forms.Form):
         label="Client Counselled?",
         help_text="Whether the client has been counselled",
     )
+
+    next_of_kin_one = forms.JSONField(encoder=DjangoJSONEncoder)
